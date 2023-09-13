@@ -18,9 +18,10 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatDividerModule} from "@angular/material/divider";
+import { HomeComponent } from './public/pages/home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, StudentsComponent],
+  declarations: [AppComponent, StudentsComponent, HomeComponent],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, HttpClientModule, FormsModule, ReactiveFormsModule, MatTableModule, MatPaginatorModule, MatInputModule, MatButtonModule, MatFormFieldModule, MatToolbarModule, MatIconModule, MatCardModule, MatGridListModule, MatDividerModule],
   providers: [StudentsService],
   bootstrap: [AppComponent]
