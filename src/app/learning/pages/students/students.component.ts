@@ -23,26 +23,27 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   isEditMode = false;
 
   // Constructor
+
   constructor(private studentsService: StudentsService) {
     this.studentData = {} as Student;
     this.dataSource = new MatTableDataSource<any>();
   }
 
-  // Methods
+  // Private Methods
 
-  resetEditState() {
+  private resetEditState() {
     this.isEditMode = false;
     this.studentData = {} as Student;
   }
 
   // CRUD actions
-  getAllStudents() {
+  private getAllStudents() {
     this.studentsService.getAll().subscribe((response: any) => {
       this.dataSource.data = response;
     });
   }
 
-  addStudent() {
+  private addStudent() {
     this.studentData.id = 0;
     this.studentsService.create(this.studentData).subscribe((response: any) => {
       this.dataSource.data.push({...response});
@@ -52,7 +53,7 @@ export class StudentsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  updateStudent() {
+  private updateStudent() {
     let student = this.studentData;
     this.studentsService.update(student.id, student).subscribe((response: any) => {
       this.dataSource.data = this.dataSource.data.map((o: Student) => {
@@ -64,7 +65,7 @@ export class StudentsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  deleteStudent(id: number) {
+  private deleteStudent(id: number) {
     this.studentsService.delete(id).subscribe(() => {
       this.dataSource.data = this.dataSource.data.filter((o: Student) => {
         return o.id !== id ? o : false
@@ -73,6 +74,7 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   }
 
   // Component User Interface Event Handling methods
+
   onEditItem(element: Student) {
     this.studentData = element;
     this.isEditMode = true;

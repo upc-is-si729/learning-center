@@ -8,6 +8,7 @@ import {NgForm} from "@angular/forms";
   styleUrls: ['./student-form.component.css']
 })
 export class StudentFormComponent {
+
   // Attributes
 
   @Input()student: Student;
@@ -22,15 +23,21 @@ export class StudentFormComponent {
 
   @Output()editCanceled = new EventEmitter();
 
+  // Constructor
   constructor() {
     this.student = {} as Student;
   }
 
-  resetEditState() {
+  // Private Methods
+
+  private resetEditState() {
     this.editMode = false;
     this.studentForm.resetForm();
     this.student = {} as Student;
   }
+
+  // Component User Interface Event Handling methods
+
   onSubmit() {
     if (this.studentForm.form.valid) {
       if (this.editMode) {
