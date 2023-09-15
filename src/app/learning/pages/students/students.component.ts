@@ -89,17 +89,16 @@ export class StudentsComponent implements OnInit, AfterViewInit {
     this.deleteStudent(element.id);
   }
 
-  onSubmit() {
-    if (this.studentForm.form.valid) {
-      if (this.isEditMode) {
-        this.updateStudent();
-      } else {
-        this.addStudent();
-      }
-      this.resetEditState();
-    } else {
-      console.log('Invalid Data');
-    }
+  onStudentAdded(student: Student) {
+    this.studentData = student;
+    this.addStudent();
+    this.resetEditState();
+  }
+
+  onStudentUpdated(student: Student) {
+    this.studentData = student;
+    this.updateStudent();
+    this.resetEditState();
   }
 
   // Component lifecycle event handlers
