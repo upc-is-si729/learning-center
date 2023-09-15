@@ -2,7 +2,6 @@ import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {StudentsService} from "../../services/students.service";
 import {Student} from "../../model/student";
 import {MatTableDataSource} from "@angular/material/table";
-import {NgForm} from "@angular/forms";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 
@@ -15,9 +14,7 @@ export class StudentsComponent implements OnInit, AfterViewInit {
 
   studentData: Student;
   dataSource: MatTableDataSource<any>;
-  displayedColumns: string[] = ['id', 'name', 'age', 'address', 'action'];
-
-  @ViewChild('studentForm', {static: false}) studentForm!: NgForm;
+  displayedColumns: string[] = ['id', 'name', 'age', 'address', 'actions'];
 
   @ViewChild(MatPaginator, {static: false}) paginator!: MatPaginator;
 
@@ -35,7 +32,6 @@ export class StudentsComponent implements OnInit, AfterViewInit {
 
   resetEditState() {
     this.isEditMode = false;
-    this.studentForm.resetForm();
     this.studentData = {} as Student;
   }
 
@@ -48,8 +44,8 @@ export class StudentsComponent implements OnInit, AfterViewInit {
 
   addStudent() {
     this.studentData.id = 0;
-    this.studentsService.create(this.studentData).subscribe(() => {
-      this.dataSource.data.push({...this.studentData});
+    this.studentsService.create(this.studentData).subscribe((response: any) => {
+      this.dataSource.data.push({...response});
       this.dataSource.data = this.dataSource.data.map((o: Student) => {
         return o;
       });
@@ -57,10 +53,11 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   }
 
   updateStudent() {
-    this.studentsService.update(this.studentData.id, this.studentData).subscribe(() => {
+    let student = this.studentData;
+    this.studentsService.update(student.id, student).subscribe((response: any) => {
       this.dataSource.data = this.dataSource.data.map((o: Student) => {
-        if (o.id === this.studentData.id) {
-          o = this.studentData;
+        if (o.id === response.id) {
+          o = response;
         }
         return o;
       });
@@ -82,7 +79,8 @@ export class StudentsComponent implements OnInit, AfterViewInit {
   }
 
   onCancelEdit() {
-    this.resetEditState();
+    this.isEditMode = false;
+    this.getAllStudents();
   }
 
   onDeleteItem(element: Student) {
@@ -103,11 +101,11 @@ export class StudentsComponent implements OnInit, AfterViewInit {
 
   // Component lifecycle event handlers
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
     this.getAllStudents();
   }
 
   ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 

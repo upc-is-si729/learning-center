@@ -2,7 +2,7 @@
   <h1>Students Catalogue</h1>
 
   <!-- Edit/Add Form -->
-  <app-student-form (studentAdded)="onStudentAdded($event)" (editCanceled)="onCancelEdit()"
+  <app-student-form (editCanceled)="onCancelEdit()" (studentAdded)="onStudentAdded($event)"
                     (studentUpdated)="onStudentUpdated($event)" [editMode]="isEditMode" [student]="studentData"/>
   <!-- Data Table -->
   <table [dataSource]="dataSource" class="mat-elevation-z8" mat-table matSort>
@@ -28,7 +28,7 @@
         <a (click)="onEditItem(element)" href="javascript:void(0)">
           <mat-icon>edit</mat-icon>
         </a>
-        <a (click)="onDeleteItem(element.id)" href="javascript:void(0)">
+        <a (click)="onDeleteItem(element)" href="javascript:void(0)">
           <mat-icon>delete</mat-icon>
         </a>
       </td>
