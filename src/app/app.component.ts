@@ -6,10 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'learning-center';
+
+  // Attributes
+
+  title = 'ACME Learning Center';
   options = [
     { path: '/home', title: 'Home'},
-    { path: '/students', title: 'Students'},
+    { path: '/learning/students', title: 'Students'},
     { path: '/about', title: 'About'}
   ]
 }
