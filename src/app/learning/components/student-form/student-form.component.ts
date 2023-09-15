@@ -44,7 +44,7 @@ export class StudentFormComponent {
     }
   }
 
-  onCancelEdit() {
+  onCancel() {
     this.resetEditState();
     this.editCanceled.emit();
   }
